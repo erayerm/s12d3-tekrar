@@ -11,10 +11,15 @@ import ProductCard from "./components/ProductCard";
 */
 function App() {
   const [products, setProducts] = useState([]);
+  const instance = axios.create({
+    baseURL: "https://fakestoreapi.com",
+    timeout: 1000,
+    headers: { "Fakestoreapi": "foobar" },
+  });
   useEffect(() => {
-    axios("https://fakestoreapi.com/products")
+    instance.get("/products")
       .then((res) => setProducts(res.data))
-      .then((err) => console.error(err));
+      .catch((err) => console.error(err));
   }, []);
   return (
     <>
