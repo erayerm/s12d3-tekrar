@@ -1,9 +1,11 @@
 import axios from "axios";
 import ProductCard from "./ProductCard";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { ProductContext } from "../context/ProductContext";
 
 export default function Products() {
-  const [products, setProducts] = useState([]);
+  //const [products, setProducts] = useState([]);
+  const { setProducts, products } = useContext(ProductContext);
   const instance = axios.create({
     baseURL: "https://fakestoreapi.com",
     timeout: 1000,
