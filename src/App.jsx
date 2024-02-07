@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import axios from 'axios'
+import { useEffect, useState } from "react";
+import "./App.css";
+import axios from "axios";
+import ProductCard from "./components/ProductCard";
 /*
 - Set up a new React application using Vite.
 - Integrate Axios for API calls to a public API (e.g., JSONPlaceholder or any open API of choice).
@@ -11,12 +10,21 @@ import axios from 'axios'
 
 */
 function App() {
-
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    axios("https://fakestoreapi.com/products")
+      .then((res) => setProducts(res.data))
+      .then((err) => console.error(err));
+  }, []);
   return (
     <>
-    
+      <div className="flex flex-wrap gap-5">
+        {products.map((item, index) => {
+          return <ProductCard key={index} data={item} />;
+        })}
+      </div>
     </>
   );
 }
 
-export default App
+export default App;
